@@ -1,0 +1,53 @@
+{
+  "name": "gdespa_api",
+  "description": "GDES PANAMA project api",
+  "main": "app.js",
+  "scripts": {
+    "start": "set NODE_ENV=DEV && node app.js",
+    "commit": "git add -A && git cz && git push",
+    "copy-sql": "copy .\\node_modules\\asw_basepkg\\sql\\*.* .\\sql",
+    "report-coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "check-coverage": "istanbul check-coverage --statements 50 --branches 10 --functions 50 --lines 50",
+    "test-copy": "npm run copy-sql && istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
+    "test": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ariadna-Software/gdespa_api/gdespa_api.git"
+  },
+  "author": "'Rafael <'rafa@myariadna.com'>",
+  "license": "CC-BY-NC-4.0",
+  "bugs": {
+    "url": "https://github.com/Ariadna-Software/gdespa_api/issues"
+  },
+  "homepage": "https://github.com/Ariadna-Software/gdespa_api2#readme",
+  "dependencies": {
+    "gdespa_mysql": "^1.0.0",
+    "body-parser": "^1.15.2",
+    "cors": "^2.7.1",
+    "express": "^4.14.0",
+    "moment": "^2.14.1",
+    "morgan": "^1.7.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "codecov.io": "^0.1.6",
+    "commitizen": "^2.8.6",
+    "coveralls": "^2.11.12",
+    "cz-conventional-changelog": "^1.2.0",
+    "ghooks": "^1.3.2",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.0.2",
+    "semantic-release": "^4.3.5"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    },
+    "ghooks": {
+      "pre-commit": "npm test && npm run check-coverage"
+    }
+  }
+}
