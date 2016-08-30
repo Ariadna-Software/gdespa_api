@@ -32,6 +32,17 @@ if (process.env.NODE_ENV != "TEST"){
     app.use(morgan('combined')); //'combined' outputs the Apache style LOGs
 }
 
+var router = express.Router();
+
+// common to all routes?
+router.use(function(req, res, next){
+	// here it goes common code
+    console.log('COMMON ROUTE');
+	// ----------------------------
+	// execution goes on
+	next();
+});
+
 // mount controllers for routes
 var echo = require('./controllers/echo');
 var user_group = require('./controllers/user_group');

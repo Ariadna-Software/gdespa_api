@@ -19,7 +19,7 @@ describe("User API Test", function () {
     });
     it("GET should return some users", function (done) {
         chai.request(app)
-            .get('/api/user/?test=true')
+            .get('/api/user/?test=true&api_key=*TS*KEY')
             .end(function (err, res) {
                 expect(err).to.be.null;
                 expect(res).to.have.a.property("status", 200);
@@ -29,7 +29,7 @@ describe("User API Test", function () {
     });
     it("POST should create a user", function (done) {
         chai.request(app)
-            .post('/api/user/?test=true')
+            .post('/api/user/?test=true&api_key=*TS*KEY')
             .send({
                 id: 0,
                 name: "TestUser",
@@ -51,7 +51,7 @@ describe("User API Test", function () {
     });
     it("GET/id should return the new ceated user", function (done) {
         chai.request(app)
-            .get('/api/user/' + tId + '?test=true')
+            .get('/api/user/' + tId + '?test=true&api_key=*TS*KEY')
             .end(function (err, res) {
                 expect(err).to.be.null;
                 expect(res).to.have.a.property("status", 200);
@@ -75,7 +75,7 @@ describe("User API Test", function () {
     });
     it("PUT/id should modify the user with that id", function (done) {
         chai.request(app)
-            .put('/api/user/' + tId + '?test=true')
+            .put('/api/user/' + tId + '?test=true&api_key=*TS*KEY')
             .send({
                 id: tId,
                 name: "TestUserChanged",
@@ -106,7 +106,7 @@ describe("User API Test", function () {
     });
     it("DELETE/id should delete the user group with that id", function (done) {
         chai.request(app)
-            .delete('/api/user/' + tId + '?test=true')
+            .delete('/api/user/' + tId + '?test=true&api_key=*TS*KEY')
             .send({
                 id: tId
             })
@@ -122,7 +122,7 @@ describe("User API Test", function () {
     });
     it("GET/id should return status 404 when user is not found", function (done) {
         chai.request(app)
-            .get('/api/user/-1?test=true')
+            .get('/api/user/-1?test=true&api_key=*TS*KEY')
             .end(function (err, res) {
                 expect(err).not.to.be.null;
                 expect(res).to.have.a.property("status", 404);

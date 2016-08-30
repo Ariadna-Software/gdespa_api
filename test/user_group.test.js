@@ -19,7 +19,7 @@ describe("User Group API Test", function () {
     });
     it("GET should return some user groups", function (done) {
         chai.request(app)
-            .get('/api/user_group/?test=true')
+            .get('/api/user_group/?test=true&api_key=*TS*KEY')
             .end(function (err, res) {
                 expect(err).to.be.null;
                 expect(res).to.have.a.property("status", 200);
@@ -29,7 +29,7 @@ describe("User Group API Test", function () {
     });
     it("POST should create a user group", function (done) {
         chai.request(app)
-            .post('/api/user_group/?test=true')
+            .post('/api/user_group/?test=true&api_key=*TS*KEY')
             .send({
                 id: 0,
                 name: "TestUserGroup"
@@ -45,7 +45,7 @@ describe("User Group API Test", function () {
     });
     it("GET/id should return the user group with this id ", function (done) {
         chai.request(app)
-            .get('/api/user_group/' + tId + '?test=true')
+            .get('/api/user_group/' + tId + '?test=true&api_key=*TS*KEY')
             .end(function (err, res) {
                 expect(err).to.be.null;
                 expect(res).to.have.a.property("status", 200);
@@ -63,7 +63,7 @@ describe("User Group API Test", function () {
     });
     it("PUT/id should modify the user group with that id", function (done) {
         chai.request(app)
-            .put('/api/user_group/' + tId + '?test=true')
+            .put('/api/user_group/' + tId + '?test=true&api_key=*TS*KEY')
             .send({
                 id: tId,
                 name: "TestUserGroupX"
@@ -82,7 +82,7 @@ describe("User Group API Test", function () {
     });
     it("DELETE/id should delete the user group with that id", function (done) {
         chai.request(app)
-            .delete('/api/user_group/' + tId + '?test=true')
+            .delete('/api/user_group/' + tId + '?test=true&api_key=*TS*KEY')
             .send({
                 id: tId,
                 name: "TestUserGroupX"
@@ -99,7 +99,7 @@ describe("User Group API Test", function () {
     });
     it("GET/id should return status 404 when user group is not found ", function (done) {
         chai.request(app)
-            .get('/api/user_group/-1?test=true')
+            .get('/api/user_group/-1?test=true&api_key=*TS*KEY')
             .end(function (err, res) {
                 expect(err).not.to.be.null;
                 expect(res).to.have.a.property("status", 404);

@@ -5,8 +5,9 @@
 var express = require('express');
 var router = express.Router();
 var userDb = require('gdespa_mysql').user; // to access mysql db
+var common = require('./common');
 
-router.get('/', function (req, res) {
+router.get('/', common.midChkApiKey, function (req, res) {
     var test = req.query.test && (req.query.test == 'true');
     userDb.get(function (err, users) {
         if (err) {
@@ -17,7 +18,7 @@ router.get('/', function (req, res) {
     }, test);
 });
 
-router.post('/', function (req, res) {
+router.post('/', common.midChkApiKey, function (req, res) {
     var test = req.query.test && (req.query.test == 'true');
     var user = req.body;
     userDb.post(user, function (err, users) {
@@ -29,21 +30,21 @@ router.post('/', function (req, res) {
     }, test);
 });
 
-router.get('/:id', function(req, res){
+router.get('/:id', common.midChkApiKey, function (req, res) {
     var test = req.query.test && (req.query.test == "true");
     var id = req.params.id;
-    userDb.getById(id, function(err, users){
+    userDb.getById(id, function (err, users) {
         if (err) return res.status(500).send(err.message);
         if (users.length == 0) return res.status(404).send('User not found');
         res.json(users);
     }, test);
 });
 
-router.put('/:id', function(req, res){
+router.put('/:id', common.midChkApiKey, function (req, res) {
     var test = req.query.test && (req.query.test == "true");
     var id = req.params.id;
     var user = req.body;
-    userDb.put(user, function(err, user){
+    userDb.put(user, function (err, user) {
         if (err) {
             res.status(500).send(err.message);
         } else {
@@ -52,11 +53,11 @@ router.put('/:id', function(req, res){
     }, test);
 });
 
-router.delete('/:id', function(req, res){
+router.delete('/:id', common.midChkApiKey, function (req, res) {
     var test = req.query.test && (req.query.test == "true");
     var id = req.params.id;
     var user = req.body;
-    userDb.delete(user, function(err, group){
+    userDb.delete(user, function (err, group) {
         if (err) {
             res.status(500).send(err.message);
         } else {

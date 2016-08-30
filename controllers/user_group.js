@@ -5,8 +5,9 @@
 var express = require('express');
 var router = express.Router();
 var userGroupDb = require('gdespa_mysql').userGroup; // to access mysql db
+var midCheck = require('./common').midChkApiKey;
 
-router.get('/', function (req, res) {
+router.get('/', midCheck, function (req, res) {
     var test = req.query.test && (req.query.test == 'true');
     userGroupDb.get(function (err, groups) {
         if (err) {
@@ -17,7 +18,7 @@ router.get('/', function (req, res) {
     }, test);
 });
 
-router.post('/', function (req, res) {
+router.post('/', midCheck, function (req, res) {
     var test = req.query.test && (req.query.test == 'true');
     var userGroup = req.body;
     userGroupDb.post(userGroup, function (err, groups) {
@@ -29,7 +30,7 @@ router.post('/', function (req, res) {
     }, test);
 });
 
-router.get('/:id', function(req, res){
+router.get('/:id', midCheck, function(req, res){
     var test = req.query.test && (req.query.test == "true");
     var id = req.params.id;
     userGroupDb.getById(id, function(err, groups){
@@ -39,7 +40,7 @@ router.get('/:id', function(req, res){
     }, test);
 });
 
-router.put('/:id', function(req, res){
+router.put('/:id', midCheck, function(req, res){
     var test = req.query.test && (req.query.test == "true");
     var id = req.params.id;
     var userGroup = req.body;
@@ -52,7 +53,7 @@ router.put('/:id', function(req, res){
     }, test);
 });
 
-router.delete('/:id', function(req, res){
+router.delete('/:id', midCheck, function(req, res){
     var test = req.query.test && (req.query.test == "true");
     var id = req.params.id;
     var userGroup = req.body;
