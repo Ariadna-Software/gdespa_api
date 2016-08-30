@@ -22,9 +22,9 @@ var commonApi = {
             return res.status(401).send('Yo need an api_key to access');
         }
         var apk = req.query.api_key;
-        authorize.checkApiKey(apk, function (err, res) {
+        authorize.checkApiKey(apk, function (err, chk) {
             if (err) return res.status(500).send(err.message);
-            if (!res) return res.status(401).send('Your api_key is incorrect or expired. Please, login again');
+            if (!chk) return res.status(401).send('Your api_key is incorrect or expired. Please, login again');
             next();
         }, test);
     }

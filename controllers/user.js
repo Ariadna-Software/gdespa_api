@@ -4,7 +4,8 @@
 */
 var express = require('express');
 var router = express.Router();
-var userDb = require('gdespa_mysql').user; // to access mysql db
+var userDb = require('gdespa_mysql').user;
+var auth = require('gdespa_mysql').authorization;
 var common = require('./common');
 
 router.get('/', common.midChkApiKey, function (req, res) {
@@ -63,6 +64,23 @@ router.delete('/:id', common.midChkApiKey, function (req, res) {
         } else {
             res.json(group);
         }
+    }, test);
+});
+
+router.get('/login', function (req, res) {
+    console.log("REQ.QUERY: ", req.query);
+    var test = req.query.test && (req.query.test == 'true');
+    var login = req.query.login,
+        password = req.query.password;
+    if (!(login && password)) {
+        return res.status(400).send('A login and password needed');
+    }
+    auth.login(login, password, function (err, res) {
+        if (err)
+            return res.status(500).send(err.message);
+        if (!(res.user || res.api_key))
+            return res.status(401).send('Login / password incorrect');
+        res.json(res);
     }, test);
 });
 
