@@ -14,9 +14,15 @@ var expect = chai.expect;
 
 chai.use(chaiHttp);
 
-describe("Verifiy databases and tables", function(){
-    it("should have a database and tables", function(done){
-        bpkg.dbCon.verifyDataBase(function(err){
+describe("Verifiy databases and tables", function () {
+    it("should have a database and tables", function (done) {
+        bpkg.dbCon.verifyDataBase(function (err) {
+            expect(err).to.be.null;
+            done();
+        }, true);
+    });
+    it("should verify that user, group and apikey needed for all test exist actually", function (done) {
+        bpkg.dbCon.execSql('prepare_user_api_test.sql', function (err) {
             expect(err).to.be.null;
             done();
         }, true);

@@ -108,7 +108,7 @@ describe("User Group API Test", function () {
     });
     after(function (done) {
         // after all delete records
-        bpkg.dbCon.execSql('delete_test.sql', function (err) {
+        bpkg.dbCon.execSql('delete_api_test.sql', function (err) {
             expect(err).to.be.null;
             done();
         }, true);
