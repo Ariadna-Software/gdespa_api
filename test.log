@@ -1,0 +1,43 @@
+
+> gdespa_api@ test C:\GDES_PANAMA\gdespa_api
+> istanbul cover node_modules/mocha/bin/_mocha -- --timeout 5000 -R spec
+
+
+
+  Verifiy databases and tables
+    √ should have a database and tables (1216ms)
+    √ should verify that user, group and apikey needed for all test exist actually (189ms)
+
+  Echo
+    √ should return a default echo (43ms)
+
+  Authorization
+    √ should admit correct login (70ms)
+    √ should not admit incorrect login (43ms)
+
+  User API Test
+    √ GET should return some users
+    √ POST should create a user (70ms)
+    √ GET/id should return the new ceated user
+    √ PUT/id should modify the user with that id (50ms)
+    √ DELETE/id should delete the user group with that id
+    √ GET/id should return status 404 when user is not found
+
+  User Group API Test
+    √ GET should return some user groups
+    √ POST should create a user group (42ms)
+    √ GET/id should return the user group with this id 
+    √ PUT/id should modify the user group with that id
+    √ DELETE/id should delete the user group with that id (40ms)
+    √ GET/id should return status 404 when user group is not found 
+
+
+  17 passing (3s)
+
+
+=============================== Coverage summary ===============================
+Statements   : 75% ( 129/172 )
+Branches     : 59.09% ( 52/88 )
+Functions    : 83.33% ( 25/30 )
+Lines        : 76.97% ( 127/165 )
+================================================================================

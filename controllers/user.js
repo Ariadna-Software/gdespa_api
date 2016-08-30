@@ -68,7 +68,6 @@ router.delete('/:id', common.midChkApiKey, function (req, res) {
 });
 
 router.get('/login', function (req, res) {
-    console.log("REQ.QUERY: ", req.query);
     var test = req.query.test && (req.query.test == 'true');
     var login = req.query.login,
         password = req.query.password;

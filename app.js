@@ -34,24 +34,11 @@ if (process.env.NODE_ENV != "TEST"){
 
 var router = express.Router();
 
-// common to all routes?
-router.use(function(req, res, next){
-	// here it goes common code
-    console.log('COMMON ROUTE');
-	// ----------------------------
-	// execution goes on
-	next();
-});
-
-// mount controllers for routes
-var echo = require('./controllers/echo');
-var user_group = require('./controllers/user_group');
-var user = require('./controllers/user');
-
 // registering routes
-app.use('/api/echo', echo);
-app.use('/api/user_group', user_group);
-app.use('/api/user', user);
+app.use('/api/echo', require('./controllers/echo'));
+app.use('/api/user_group', require('./controllers/user_group'));
+app.use('/api/user', require('./controllers/user'));
+app.use('/api/login', require('./controllers/login'));
 
 // general API to export
 
