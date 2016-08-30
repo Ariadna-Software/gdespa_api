@@ -1,6 +1,7 @@
 {
   "name": "gdespa_api",
   "description": "GDES PANAMA project api",
+  "version": "1.0.0",
   "main": "app.js",
   "scripts": {
     "start": "set NODE_ENV=DEV && node app.js",
