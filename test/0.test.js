@@ -8,7 +8,7 @@ process.env.NODE_ENV = "TEST";
 
 var chai = require('chai'),
     chaiHttp = require('chai-http'),
-    bpkg = require('asw_basepkg'),
+    bpkg = require('gdespa_mysql'),
     app = require('../app').app;
 var expect = chai.expect;
 

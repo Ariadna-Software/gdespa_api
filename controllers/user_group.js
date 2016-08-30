@@ -4,7 +4,7 @@
 */
 var express = require('express');
 var router = express.Router();
-var userGroupDb = require('asw_basepkg').userGroup; // to access mysql db
+var userGroupDb = require('gdespa_mysql').userGroup; // to access mysql db
 
 router.get('/', function (req, res) {
     var test = req.query.test && (req.query.test == 'true');

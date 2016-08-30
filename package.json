@@ -5,7 +5,7 @@
   "scripts": {
     "start": "set NODE_ENV=DEV && node app.js",
     "commit": "git add -A && git cz && git push",
-    "copy-sql": "copy .\\node_modules\\asw_basepkg\\sql\\*.* .\\sql",
+    "copy-sql": "copy .\\node_modules\\gdespa_mysql\\sql\\*.* .\\sql",
     "report-coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "check-coverage": "istanbul check-coverage --statements 50 --branches 10 --functions 50 --lines 50",
     "test-copy": "npm run copy-sql && istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
