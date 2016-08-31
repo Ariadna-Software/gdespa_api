@@ -1,0 +1,386 @@
+swagger: "2.0"
+info:
+  title: GDES PANAMA SWAGGER
+  version: "1.0.1"
+  description: |
+    (c) [Ariadna Software S.L.](http://ariadnasw.com)  
+    This is a swagger documentation about GDES PANAMA API.
+    This file uses almost every single aspect of the [Open API Specification](https://openapis.org/).  
+    This API will use JSON.  
+    JSON looks like this:  
+    
+    ```JSON
+    {
+      "key": "value",
+      "anotherKey": "anotherValue"
+    }
+    ```    
+  termsOfService: http://www.ariadnasw.com/aviso-legal/
+  contact:
+    name: Rafael García 
+    email: rafa@myariadna.com
+  license:
+    name: CC BY-NC 4.0
+    url: https://creativecommons.org/licenses/by-nc/4.0/    
+tags:
+  - name: User groups
+    description: User groups functions related
+  - name: User
+    description: User functions related
+  - name: Utilities
+    description: Some api utilies (login is here)
+# during dev, should point to your local machine
+host: localhost:5000
+# basePath prefixes all resource paths 
+basePath: /api
+# 
+schemes:
+  # TODO: We have to implement https protocol
+  - http
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+paths:
+  /login:
+    get:
+      summary: A login request 
+      description: Obtains an api_key necessary for other request
+      tags:
+        - Utilities
+      parameters:
+        - $ref: "#/parameters/test"
+        - $ref: "#/parameters/login"
+        - $ref: "#/parameters/password"
+      responses:
+        200:
+          description: A response object with the user and api_key
+          schema:
+            $ref: "#/definitions/Response"
+        500:
+          $ref: "#/responses/ErrorResponse"
+        400:
+          description: A login and password needed
+        401:
+          description: Login / password incorrect
+        
+  /user_group:
+    get:
+      summary: Get all user groups
+      description: Returns an array with all user groups in the database
+      tags:
+        - User groups
+      parameters:
+        - $ref: "#/parameters/test"
+        - $ref: "#/parameters/api_key"
+      responses:
+        200:
+          description: A list of user groups
+          schema:
+            title: UserGroups
+            description: A user groups array
+            type: array
+            items:
+              $ref: "#/definitions/UserGroup"
+        500:
+          $ref: "#/responses/ErrorResponse"
+        401:
+           $ref: "#/responses/AuthorizationRequiredResponse"
+    post:
+      summary: Create a new user group
+      description: Creates a new user group using the object passed in parameters
+      tags:
+        - User groups
+      parameters:
+        - $ref: "#/parameters/test"
+        - $ref: "#/parameters/api_key"
+        - $ref: "#/parameters/userGroup"
+      responses:
+        200:
+          description: User group succesfully created
+          schema:
+            $ref: "#/definitions/UserGroup"
+        500:
+          $ref: "#/responses/ErrorResponse"
+        401:
+           $ref: "#/responses/AuthorizationRequiredResponse"
+
+  /user_group/{id}:
+    get:
+      summary: Get a user group by ID
+      description: Returns the user group with an id that matches the parameter
+      tags:
+        - User groups
+      parameters:
+        - $ref: "#/parameters/test"
+        - $ref: "#/parameters/api_key"
+        - $ref: "#/parameters/id"
+      responses:
+        200:
+          description: A user group
+          schema:
+            $ref: "#/definitions/UserGroup"
+        404:
+          $ref: "#/responses/UserGroupNotFoundResponse"
+        500:
+          $ref: "#/responses/ErrorResponse"
+        401:
+           $ref: "#/responses/AuthorizationRequiredResponse"
+    put:
+      summary: Modify a user group
+      description: Modifies the user group that matches id parameter according to the object passed in body
+      tags:
+        - User groups
+      parameters:
+        - $ref: "#/parameters/test"
+        - $ref: "#/parameters/api_key"
+        - $ref: "#/parameters/id"
+        - $ref: "#/parameters/userGroup"
+      responses:
+        200:
+          description: User group successfully modified
+          schema:
+            $ref: "#/definitions/UserGroup"
+        500:
+          $ref: "#/responses/ErrorResponse"
+        401:
+           $ref: "#/responses/AuthorizationRequiredResponse"
+    delete:
+      summary: Deletes a user group
+      description: Removes the user group whose id matches the given parameters
+      tags:
+        - User groups
+      parameters:
+        - $ref: "#/parameters/test"
+        - $ref: "#/parameters/api_key"
+        - $ref: "#/parameters/id"
+      responses:
+        200:
+          description: User group sucessfully removed
+        500:
+          $ref: "#/responses/ErrorResponse"
+        401:
+           $ref: "#/responses/AuthorizationRequiredResponse"
+          
+  /user:
+    get:
+      summary: Get all users
+      description: Returns an array with all users in the database
+      tags:
+        - User
+      parameters:
+        - $ref: "#/parameters/test"
+        - $ref: "#/parameters/api_key"
+      responses:
+        200:
+          description: A list of users
+          schema:
+            title: Users
+            description: A users array
+            type: array
+            items:
+              $ref: "#/definitions/User"
+        500:
+          $ref: "#/responses/ErrorResponse"
+        401:
+           $ref: "#/responses/AuthorizationRequiredResponse"
+    post:
+      summary: Create a new user
+      description: Creates a new userusing the object passed in parameters
+      tags:
+        - User
+      parameters:
+        - $ref: "#/parameters/test"
+        - $ref: "#/parameters/api_key"
+        - $ref: "#/parameters/user"
+      responses:
+        200:
+          description: User succesfully created
+          schema:
+            $ref: "#/definitions/User"
+        500:
+          $ref: "#/responses/ErrorResponse"
+
+  /user/{id}:
+    get:
+      summary: Get a user by ID
+      description: Returns the user with an id that matches the parameter
+      tags:
+        - User
+      parameters:
+        - $ref: "#/parameters/test"
+        - $ref: "#/parameters/api_key"
+        - $ref: "#/parameters/id"
+      responses:
+        200:
+          description: A user
+          schema:
+            $ref: "#/definitions/User"
+        404:
+          $ref: "#/responses/UserNotFoundResponse"
+        401:
+           $ref: "#/responses/AuthorizationRequiredResponse"
+        500:
+          $ref: "#/responses/ErrorResponse"
+    put:
+      summary: Modify a user
+      description: Modifies the user that matches id parameter according to the object passed in body
+      tags:
+        - User
+      parameters:
+        - $ref: "#/parameters/test"
+        - $ref: "#/parameters/api_key"
+        - $ref: "#/parameters/id"
+        - $ref: "#/parameters/user"
+      responses:
+        200:
+          description: User successfully modified
+          schema:
+            $ref: "#/definitions/User"
+        401:
+           $ref: "#/responses/AuthorizationRequiredResponse"
+        500:
+          $ref: "#/responses/ErrorResponse"
+    delete:
+      summary: Deletes a user
+      description: Removes the user whose id matches the given parameters
+      tags:
+        - User
+      parameters:
+        - $ref: "#/parameters/test"
+        - $ref: "#/parameters/api_key"
+        - $ref: "#/parameters/id"
+      responses:
+        200:
+          description: User sucessfully removed
+        401:
+           $ref: "#/responses/AuthorizationRequiredResponse"
+        500:
+          $ref: "#/responses/ErrorResponse"          
+              
+  /echo:
+    get:
+      tags:
+        - Utilities
+      description: Returns the string passed in parameters
+      # used as the method name of the controller
+      operationId: hello
+      parameters:
+        - $ref: "#/parameters/text"
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/EchoResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
+  /swagger:
+    x-swagger-pipe: swagger_raw
+    
+# complex objects have schema definitions
+definitions:
+  Error:
+    title: Error
+    description: An error object that contains a message
+    properties:
+      message:
+        type: string
+  UserGroup:
+    title: UserGroup
+    description: A UserGroup object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+  User:
+    title: User
+    description: A user object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      userGroup:
+        $ref: "#/definitions/UserGroup"
+  Response:
+    title: Response
+    description: Response to a login
+    properties:
+      user:
+        $ref: "#/definitions/User"
+      api_key:
+        type: string
+  EchoResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+
+responses:
+  ErrorResponse:
+    description: A standard error response
+    schema:
+      $ref: "#/definitions/Error"
+  UserGroupNotFoundResponse:
+    description: The user group doesn't exist (User group not found)
+  UserNotFoundResponse:
+    description: The user doesn't exist (User not found)
+  AuthorizationRequiredResponse:
+    description: Authorization required (api_key)
+parameters:
+  id:
+    name: id
+    in: path
+    description: An id used for search an specific object
+    required: true
+    type: integer
+  userGroup:
+    name: userGroup
+    in: body
+    description: A UserGroup object
+    schema:
+      $ref: "#/definitions/UserGroup"
+  user:
+    name: user
+    in: body
+    description: A User object
+    schema:
+      $ref: "#/definitions/User"      
+  text:
+    name: text
+    in: query
+    description: String that's going to be echoed
+    required: false
+    type: string
+  test:
+    name: test
+    in: query
+    description: Indicates if test database is used (default 'false')
+    required: false
+    type: boolean
+  api_key:
+    name: api_key
+    in: query
+    description: A key that identifies a user logged. It expires after 5 hours
+    required: true
+    type: string
+  login:
+    name: login
+    in: query
+    description: User's login
+    required: true
+    type: string
+  password:
+    name: password
+    in: query
+    description: User's password
+    required: true
+    type: string    
