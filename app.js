@@ -61,7 +61,7 @@ var appAPI = {
     }
 }
 
-if (process.env.NODE_ENV == "DEV"){
+if (process.env.NODE_ENV != "TEST"){
     appAPI.init();
 }
 
