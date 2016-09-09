@@ -35,6 +35,7 @@ describe("User API Test", function () {
                 name: "TestUser",
                 login: "login",
                 password: "password",
+                lang:"en",
                 userGroup: {
                     id: 2,
                     name: "TestUserGroup"
@@ -64,6 +65,7 @@ describe("User API Test", function () {
                     name: "TestUser",
                     login: "login",
                     password: "password",
+                    lang:"en",
                     userGroup: {
                         id: 2,
                         name: "TestUserGroup"
@@ -81,6 +83,7 @@ describe("User API Test", function () {
                 name: "TestUserChanged",
                 login: "login",
                 password: "password",
+                lang: "en",
                 userGroup: {
                     id: 2,
                     name: "TestUserGroup"
@@ -95,6 +98,7 @@ describe("User API Test", function () {
                     name: "TestUserChanged",
                     login: "login",
                     password: "password",
+                    lang: "en",
                     userGroup: {
                         id: 2,
                         name: "TestUserGroup"
