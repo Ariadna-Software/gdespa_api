@@ -44,6 +44,9 @@ router.put('/:id', midCheck, function(req, res){
     var test = req.query.test && (req.query.test == "true");
     var id = req.params.id;
     var userGroup = req.body;
+    if (!userGroup.id){
+        return res.status(400).send('User group with id in body needed');
+    }
     userGroupDb.put(userGroup, function(err, group){
         if (err) {
             res.status(500).send(err.message);

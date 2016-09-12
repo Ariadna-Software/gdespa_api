@@ -58,6 +58,9 @@ router.delete('/:id', common.midChkApiKey, function (req, res) {
     var test = req.query.test && (req.query.test == "true");
     var id = req.params.id;
     var user = req.body;
+    if (!user.id){
+        res.status(400).send('User with id needed in body');
+    }
     userDb.delete(user, function (err, group) {
         if (err) {
             res.status(500).send(err.message);
