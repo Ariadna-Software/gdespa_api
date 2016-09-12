@@ -30,24 +30,21 @@ router.post('/', midCheck, function (req, res) {
     }, test);
 });
 
-router.get('/:id', midCheck, function(req, res){
+router.get('/:id', midCheck, function (req, res) {
     var test = req.query.test && (req.query.test == "true");
     var id = req.params.id;
-    userGroupDb.getById(id, function(err, groups){
+    userGroupDb.getById(id, function (err, groups) {
         if (err) return res.status(500).send(err.message);
         if (groups.length == 0) return res.status(404).send('User group not found');
         res.json(groups);
     }, test);
 });
 
-router.put('/:id', midCheck, function(req, res){
+router.put('/:id', midCheck, function (req, res) {
     var test = req.query.test && (req.query.test == "true");
     var id = req.params.id;
     var userGroup = req.body;
-    if (!userGroup.id){
-        return res.status(400).send('User group with id in body needed');
-    }
-    userGroupDb.put(userGroup, function(err, group){
+    userGroupDb.put(userGroup, function (err, group) {
         if (err) {
             res.status(500).send(err.message);
         } else {
@@ -56,11 +53,14 @@ router.put('/:id', midCheck, function(req, res){
     }, test);
 });
 
-router.delete('/:id', midCheck, function(req, res){
+router.delete('/:id', midCheck, function (req, res) {
     var test = req.query.test && (req.query.test == "true");
     var id = req.params.id;
     var userGroup = req.body;
-    userGroupDb.delete(userGroup, function(err, group){
+    if (!userGroup.id) {
+        return res.status(400).send('User group with id in body needed');
+    }
+    userGroupDb.delete(userGroup, function (err, group) {
         if (err) {
             res.status(500).send(err.message);
         } else {
