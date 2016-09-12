@@ -61,11 +61,11 @@ router.delete('/:id', common.midChkApiKey, function (req, res) {
     if (!user.id){
         res.status(400).send('User with id needed in body');
     }
-    userDb.delete(user, function (err, group) {
+    userDb.delete(user, function (err) {
         if (err) {
             res.status(500).send(err.message);
         } else {
-            res.json(group);
+            res.json(null);
         }
     }, test);
 });

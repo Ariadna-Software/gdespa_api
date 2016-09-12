@@ -60,11 +60,11 @@ router.delete('/:id', midCheck, function (req, res) {
     if (!userGroup.id) {
         return res.status(400).send('User group with id in body needed');
     }
-    userGroupDb.delete(userGroup, function (err, group) {
+    userGroupDb.delete(userGroup, function (err) {
         if (err) {
             res.status(500).send(err.message);
         } else {
-            res.json(group);
+            res.json(null);
         }
     }, test);
 });
